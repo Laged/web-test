@@ -1,6 +1,6 @@
 import 'babel-polyfill' // Risky, clients wont have babel-polyfill
 import chai from 'chai'
-import printJoke from '../dist/joke'
+import printJoke from '../src/joke'
 chai.should()
 
 describe('Joke generator src/joke.js', () => {
