@@ -1,28 +1,19 @@
+// @flow
 import 'babel-polyfill'
-import request from 'request'
- 
-function get(url) {
-  return new Promise( (resolve, reject) => {
-    request({
-      method: 'GET',
-      url: url,
-      json: true,
-      headers: {
-        'User-Agent': 'request'
-      }
-    }, (err, resp, body) => {
-      if(err){
-        reject(err)
-      } else {
-        resolve(body)
-      }
-    })
-  })
+import fetch from 'isomorphic-fetch'
+
+async function json(url: string): JSON {
+  try {
+    const result: Promise = await fetch(url)
+    return await result.json() 
+  } catch (e) {
+    console.log(e)
+  }
 }
 
-async function printJoke() {
+async function printJoke(): string {
   try {
-    const joke = await get('https://api.chucknorris.io/jokes/random')
+    const joke = await json('https://api.chucknorris.io/jokes/random')
     console.log(joke.value)
     return joke.value
   } catch (e) {
