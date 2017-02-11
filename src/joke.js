@@ -2,21 +2,24 @@
 import 'babel-polyfill'
 import fetch from 'isomorphic-fetch'
 
-async function json(url: string): JSON {
+const json = async function (url: string): JSON {
+
   try {
-    const result: Promise = await fetch(url)
-    return await result.json() 
-  } catch (e) {
+    const result = await fetch(url)
+    return await result.json()
+  }
+  catch (e) {
     console.log(e)
   }
 }
 
-async function printJoke(): string {
+const printJoke = async function (): string {
+
   try {
     const joke = await json('https://api.chucknorris.io/jokes/random')
-    console.log(joke.value)
     return joke.value
-  } catch (e) {
+  }
+  catch (e) {
     console.log(e)
   }
 }
