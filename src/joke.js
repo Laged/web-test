@@ -16,7 +16,7 @@ const json = async function (url: string): JSON {
 const printJoke = async function (): string {
 
   try {
-    const joke = await json('https://api.chucknorris.io/jokes/random')
+    const joke: json = await json('https://api.chucknorris.io/jokes/random')
     return joke.value
   }
   catch (e) {
