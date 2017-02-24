@@ -3,7 +3,7 @@ import 'babel-polyfill'
 import Hapi from 'hapi'
 import printJoke from './joke'
 
-const server = new Hapi.Server()
+const server:Hapi.Server = new Hapi.Server()
 
 server.connection({ port: 3000, host: 'localhost' })
 
