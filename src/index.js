@@ -1,7 +1,7 @@
 // @flow
 import 'babel-polyfill'
 import Hapi from 'hapi'
-import printJoke from './joke'
+import bot from './bot'
 
 const server:Hapi.Server = new Hapi.Server()
 
@@ -12,7 +12,17 @@ server.route({
   path: '/',
   handler: (request: Hapi.Request, reply: Hapi.IReply) => {
 
-    reply(printJoke())
+    reply({ status: 'up' })
+  }
+})
+
+server.route({
+  method: 'POST',
+  path: '/' + bot.token,
+  handler: (request: Hapi.request, reply: Hapi.IReply) => {
+
+    bot.processUpdate(request.body)
+    reply().code(200)
   }
 })
 
@@ -21,7 +31,7 @@ server.route({
   path: '/*',
   handler: (request: Hapi.request, reply: Hapi.IReply) => {
 
-    reply('Page not found :(').code(404)
+    reply('Page not found').code(404)
   }
 })
 
