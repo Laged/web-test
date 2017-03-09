@@ -1,8 +1,25 @@
-const TGBot = require('node-telegram-bot-api')
+import TGBot from 'node-telegram-bot-api'
 import Knex from 'knex'
 import knexConfig from '../../knexfile'
 import Message from '../models/message'
 import { Model } from 'objection'
+
+type MessageType = {
+  message_id: number,
+  from: {
+    id: number,
+    first_name: string,
+    username: string,
+  },
+  chat: {
+    id: number,
+    title: string,
+    type: string,
+    all_members_are_administrators: boolean,
+  },
+  date: number,
+  text: string
+}
 
 const token = process.env.TG_BOT_TOKEN
 const knex = Knex(knexConfig.development)
@@ -17,7 +34,7 @@ else {
   bot = new TGBot(token, { polling: true })
 }
 
-bot.on('message', async function (msg) {
+bot.on('message', async function (msg: MessageType) {
 
   const message = await Message.query()
     .returning('*')
