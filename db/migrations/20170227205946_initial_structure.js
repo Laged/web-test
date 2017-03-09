@@ -5,7 +5,7 @@ exports.up = (knex) => {
 
     table.increments('id').primary()
     table.biginteger('timestamp')
-    table.string('message')
+    table.string('message', 2000)
   })
 }
 
